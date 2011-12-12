@@ -2,7 +2,7 @@
 
 rails-h5bp is used to setup new Rails 3.1+ app using HTML5 Boilerplate (http://h5bp.com)
 
-Based on https://github.com/russfrisch/h5bp-rails/blob/master/h5bp.rb, it:
+Based on https://github.com/russfrisch/h5bp-rails, it:
 
 * fixed some broken urls<br/>
 * fixed some borken gsub code<br/>
@@ -11,4 +11,4 @@ Based on https://github.com/russfrisch/h5bp-rails/blob/master/h5bp.rb, it:
 
 ## How to Use
 Run directly from github:<br>
-`rails new <appname> -m https://github.com/hide2/rails-h5bp/raw/master/h5bp.rb`
+`rails new <appname> -m https://raw.github.com/hide2/rails-h5bp/master/h5bp.rb`
