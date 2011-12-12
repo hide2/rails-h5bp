@@ -20,10 +20,8 @@ prepend_to_file 'app/assets/stylesheets/application.css' do
 end
 get "https://github.com/hide2/rails-h5bp/raw/master/assets/stylesheets/style.css", "app/assets/stylesheets/application-pre.css"
 get "https://github.com/hide2/rails-h5bp/raw/master/assets/stylesheets/style.css", "app/assets/stylesheets/application-post.css"
-gsub_file 'app/assets/stylesheets/application-pre.css', /\/\* ==\|== media queries.* /m, ''
-gsub_file 'app/assets/stylesheets/application-post.css', /\A.*?(==\|== primary styles).*?(\*\/){1}/m, ''
-gsub_file 'app/assets/stylesheets/application-pre.css', /==\|==/, '==|==.'
-gsub_file 'app/assets/stylesheets/application-post.css', /==\|==/, '==|==.'
+gsub_file 'app/assets/stylesheets/application-pre.css', /\n*\/\* ==\|== media queries.* /m, ''
+gsub_file 'app/assets/stylesheets/application-post.css', /\A.*?(==\|== primary styles).*?(\*\/){1}\n*/m, ''
 
 # Update application.html.erb with HTML5 Boilerplate index.html content
 inside('app/views/layouts') do
@@ -41,5 +39,10 @@ gsub_file 'app/views/layouts/application.html.erb', /<meta charset="utf-8">/ do
   "<meta charset=\"utf-8\">
   <%= csrf_meta_tag %>"
 end
-gsub_file 'app/views/layouts/application.html.erb', /<div role="main">[\s\S]*<\/div>/, '<%= yield %>'
-gsub_file 'app/views/layouts/application.html.erb', /<!-- JavaScript[\s\S]*!-- end scripts-->/, '<%= javascript_include_tag "application" %>'
+gsub_file 'app/views/layouts/application.html.erb', /<div role="main">[\s\S]*<\/div>/ do
+  "<div role=\"main\">
+    <%= yield %>
+  </div>
+  "
+end
+gsub_file 'app/views/layouts/application.html.erb', /<!-- scripts[\s\S]*end scripts -->/, '<%= javascript_include_tag "application" %>'
