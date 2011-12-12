@@ -23,7 +23,7 @@ prepend_to_file 'app/assets/stylesheets/application.css' do
 end
 get "https://github.com/hide2/rails-h5bp/raw/master/assets/stylesheets/style.css", "app/assets/stylesheets/application-pre.css"
 get "https://github.com/hide2/rails-h5bp/raw/master/assets/stylesheets/style.css", "app/assets/stylesheets/application-post.css"
-gsub_file 'app/assets/stylesheets/application-pre.css', /\n+\/\* ==\|== media queries.* /m, ''
+gsub_file 'app/assets/stylesheets/application-pre.css', /\*\/\n*\/\* ==\|== media queries.* /m, '*/'
 gsub_file 'app/assets/stylesheets/application-post.css', /\A.*?(==\|== primary styles).*?(\*\/){1}\n*/m, ''
 
 # Update application.html.erb with HTML5 Boilerplate index.html content
@@ -46,7 +46,6 @@ gsub_file 'app/views/layouts/application.html.erb', /<div role="main">[\s\S]*<\/
   "<div role=\"main\">
 
 <%= yield %>
-
   </div>
   "
 end
