@@ -1,5 +1,3 @@
-# http://github.com/hide2/rails-h5bp
-
 # Download modernizr.js
 get "https://github.com/hide2/rails-h5bp/raw/master/assets/javascripts/modernizr.js", "app/assets/javascripts/modernizr.js"
 
