@@ -1,9 +1,7 @@
-# See README for additional information.
-# Written by: Russ Frisch
-# http://github.com/russfrisch/h5bp-rails
+# http://github.com/hide2/rails-h5bp
 
-# Download HTML5 Boilerplate plugins.js (converted to CoffeeScript)
-get "https://github.com/russfrisch/h5bp-rails/raw/master/assets/plugins.js.coffee", "app/assets/javascripts/plugins.js.coffee"
+# Download modernizr.js
+get "https://github.com/hide2/rails-h5bp/raw/master/assets/javascripts/modernizr.js", "app/assets/javascripts/modernizr.js"
 
 # Download and merge HTML5 Boilerplate stylesheet with application.css
 inside('app/assets/stylesheets/') do
@@ -18,32 +16,22 @@ prepend_to_file 'app/assets/stylesheets/application.css' do
  *= require application-pre
  *= require_self
  *= require application-post
+ *= require_tree .
 */
-
 "
 end
-get "https://github.com/paulirish/html5-boilerplate/raw/master/css/style.css", "app/assets/stylesheets/application-pre.css"
-get "https://github.com/paulirish/html5-boilerplate/raw/master/css/style.css", "app/assets/stylesheets/application-post.css"
+get "https://github.com/hide2/rails-h5bp/raw/master/assets/stylesheets/style.css", "app/assets/stylesheets/application-pre.css"
+get "https://github.com/hide2/rails-h5bp/raw/master/assets/stylesheets/style.css", "app/assets/stylesheets/application-post.css"
 gsub_file 'app/assets/stylesheets/application-pre.css', /\/\* ==\|== media queries.* /m, ''
 gsub_file 'app/assets/stylesheets/application-post.css', /\A.*?(==\|== primary styles).*?(\*\/){1}/m, ''
 gsub_file 'app/assets/stylesheets/application-pre.css', /==\|==/, '==|==.'
 gsub_file 'app/assets/stylesheets/application-post.css', /==\|==/, '==|==.'
 
-# Download HTML5 Boilerplate site root assets
-get "https://github.com/russfrisch/html5-boilerplate/raw/master/apple-touch-icon-114x114-precomposed.png", "public/apple-touch-icon-114x114-precomposed.png"
-get "https://github.com/russfrisch/html5-boilerplate/raw/master/apple-touch-icon-57x57-precomposed.png", "public/apple-touch-icon-57x57-precomposed.png"
-get "https://github.com/russfrisch/html5-boilerplate/raw/master/apple-touch-icon-72x72-precomposed.png", "public/apple-touch-icon-72x72-precomposed.png"
-get "https://github.com/russfrisch/html5-boilerplate/raw/master/apple-touch-icon-precomposed.png", "public/apple-touch-icon-precomposed.png"
-get "https://github.com/russfrisch/html5-boilerplate/raw/master/apple-touch-icon.png", "public/apple-touch-icon.png"
-get "https://github.com/russfrisch/html5-boilerplate/raw/master/crossdomain.xml", "public/crossdomain.xml"
-get "https://github.com/russfrisch/html5-boilerplate/raw/master/humans.txt", "public/humans.txt"
-get "https://github.com/russfrisch/html5-boilerplate/raw/master/.htaccess", "public/.htaccess"
-
 # Update application.html.erb with HTML5 Boilerplate index.html content
 inside('app/views/layouts') do
   FileUtils.rm_rf 'application.html.erb'
 end
-get "https://github.com/russfrisch/html5-boilerplate/raw/master/index.html", "app/views/layouts/application.html.erb"
+get "https://github.com/hide2/rails-h5bp/raw/master/index.html", "app/views/layouts/application.html.erb"
 gsub_file 'app/views/layouts/application.html.erb', /<link rel="stylesheet" href="css\/style.css">/ do
   "<%= stylesheet_link_tag \"application\" %>"
 end
@@ -55,26 +43,5 @@ gsub_file 'app/views/layouts/application.html.erb', /<meta charset="utf-8">/ do
   "<meta charset=\"utf-8\">
   <%= csrf_meta_tag %>"
 end
-gsub_file 'app/views/layouts/application.html.erb', /<div id="container">[\s\S]*<\/div>/, '<%= yield %>'
+gsub_file 'app/views/layouts/application.html.erb', /<div role="main">[\s\S]*<\/div>/, '<%= yield %>'
 gsub_file 'app/views/layouts/application.html.erb', /<!-- JavaScript[\s\S]*!-- end scripts-->/, '<%= javascript_include_tag "application" %>'
-
-# Add Modernizr-Rails dependency to get Modernizr.js support,
-# optional blueprint-rails, coffeebeans, and Heroku dependencies.
-gsub_file 'Gemfile', /gem 'jquery-rails'/ do
-  "# JavasScript libs
-gem 'jquery-rails'
-gem 'modernizr-rails'
-
-# Stylesheet libs
-# gem 'blueprint-rails'
-
-# Ajax request CoffeeScript support
-# gem 'coffeebeans'
-
-# Heroku deployment requirements
-# group :production do
-#   gem 'therubyracer-heroku'
-#   gem 'pg'
-# end
-"
-end
